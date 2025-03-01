@@ -1,4 +1,4 @@
-package com.impacta.api_gateway.livraria;
+package com.impacta.api.livraria;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
