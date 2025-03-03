@@ -5,8 +5,9 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: "postgres"
+      PGPORT: "2710"
     ports:
-      - "5432:5432"
+      - "2710:2710"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgres-data:/var/lib/postgresql/data

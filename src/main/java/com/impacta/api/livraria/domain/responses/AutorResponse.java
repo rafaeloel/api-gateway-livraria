@@ -1,4 +1,4 @@
-package com.impacta.api.livraria.domain;
+package com.impacta.api.livraria.domain.responses;
 
 import lombok.*;
 
@@ -7,9 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AutorDto {
+public class AutorResponse {
 
-    private Long id;
     private Long numero;
     private String nome;
 }

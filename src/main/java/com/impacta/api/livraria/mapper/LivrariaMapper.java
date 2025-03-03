@@ -26,4 +26,6 @@ public interface LivrariaMapper {
 
     LivroDto livroToDto(Livro livro);
 
+    List<LivroDto> listLivroToDtoList(List<Livro> livro);
+
 }

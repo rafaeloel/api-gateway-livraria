@@ -9,7 +9,6 @@ import com.impacta.api.livraria.repository.LivroRepository;
 import com.impacta.api.livraria.repository.entity.Autor;
 import com.impacta.api.livraria.repository.entity.Livro;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class LivrariaService {
     @Autowired
     private LivroRepository livroRepository;
 
-    public ResponseEntity<AutorDto> salvaAutor(AutorDto autorDto) {
+    public AutorDto salvaAutor(AutorDto autorDto) {
 
         Autor autor = Autor.builder()
                 .nome(autorDto.getNome())
@@ -32,11 +31,11 @@ public class LivrariaService {
                 .build();
         Autor resultado = autorRepository.save(autor);
 
-        return ResponseEntity.ok(LivrariaMapper.INSTANCE.autorToDto(resultado));
+        return LivrariaMapper.INSTANCE.autorToDto(resultado);
 
     }
 
-    public ResponseEntity<LivroDto> salvarLivro(Long numero, LivroDto livroDto) {
+    public LivroDto salvarLivro(Long numero, LivroDto livroDto) {
 
         this.findAutorByNumero(numero);
 
@@ -49,46 +48,47 @@ public class LivrariaService {
                 .build();
         Livro resultado = livroRepository.save(livro);
 
-        return ResponseEntity.ok(LivrariaMapper.INSTANCE.livroToDto(resultado));
+        return LivrariaMapper.INSTANCE.livroToDto(resultado);
 
     }
 
 
-    public ResponseEntity<List<AutorDto>> findAllAutor() {
+    public List<AutorDto> findAllAutor() {
 
-        List<AutorDto> dto = LivrariaMapper.INSTANCE.listAutorToListDto(autorRepository.findAll());
-
-        return ResponseEntity.ok(dto);
+        return LivrariaMapper.INSTANCE.listAutorToListDto(autorRepository.findAll());
 
     }
 
-    public ResponseEntity<AutorDto> findAutorByNumero(Long numero) throws NotFoundException {
+    public AutorDto findAutorByNumero(Long numero) throws NotFoundException {
 
         Autor autor = autorRepository.findByNumero(numero)
                 .orElseThrow(() -> new NotFoundException("Não foi possivel localizar Autor"));
 
-        return ResponseEntity.ok(LivrariaMapper.INSTANCE.autorToDto(autor));
+        return LivrariaMapper.INSTANCE.autorToDto(autor);
 
     }
 
-    public ResponseEntity<LivroDto> findLivroByNumero(Long numero) throws NotFoundException {
+    public List<LivroDto> findLivroByNumero(Long numero) throws NotFoundException {
 
-        Livro livro = livroRepository.findByNumero(numero)
-                .orElseThrow(() -> new NotFoundException("Não foi possivel localizar Autor"));
+        List<Livro> livros = livroRepository.findAllByNumero(numero);
 
-        return ResponseEntity.ok(LivrariaMapper.INSTANCE.livroToDto(livro));
+        if (livros.isEmpty()) {
+            throw new NotFoundException("Não foi possivel localizar livro cadastrado para o Autor " + numero);
+        }
+
+        return LivrariaMapper.INSTANCE.listLivroToDtoList(livros.stream().toList());
 
     }
 
-    public ResponseEntity<AutorDto> atualizaAutor(Long id, AutorDto autorDto) {
+    public AutorDto atualizaAutor(Long id, AutorDto autorDto) {
 
         return autorRepository.findById(id)
                 .map(autor -> {
                     autor.setNome(autorDto.getNome());
                     autorRepository.save(autor);
-                    return ResponseEntity.ok(LivrariaMapper.INSTANCE.autorToDto(autor));
+                    return LivrariaMapper.INSTANCE.autorToDto(autor);
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new NotFoundException("Não foi possivel realizar atualização"));
 
     }
 

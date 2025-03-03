@@ -6,7 +6,7 @@ CREATE TABLE autor (
 
 CREATE TABLE livro (
     id SERIAL PRIMARY KEY,
-    numero INT NOT NULL,
+    numero INT NOT NULL ,
     titulo VARCHAR(255) NOT NULL,
     edicao VARCHAR(50),
     isbn VARCHAR(20) UNIQUE,
