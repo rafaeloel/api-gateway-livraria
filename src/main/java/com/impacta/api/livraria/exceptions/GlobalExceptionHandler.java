@@ -13,4 +13,10 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(LivroAllReadyExistsException.class)
+    public ResponseEntity<String> handleLivroJaCadastradoException(LivroAllReadyExistsException ex) {
+
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

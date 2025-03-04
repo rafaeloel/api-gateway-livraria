@@ -2,6 +2,7 @@ package com.impacta.api.livraria.services;
 
 import com.impacta.api.livraria.domain.AutorDto;
 import com.impacta.api.livraria.domain.LivroDto;
+import com.impacta.api.livraria.exceptions.LivroAllReadyExistsException;
 import com.impacta.api.livraria.exceptions.NotFoundException;
 import com.impacta.api.livraria.mapper.LivrariaMapper;
 import com.impacta.api.livraria.repository.AutorRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -38,6 +40,7 @@ public class LivrariaService {
     public LivroDto salvarLivro(Long numero, LivroDto livroDto) {
 
         this.findAutorByNumero(numero);
+        this.validaSeExisteIsbnCadastrado(livroDto.getIsbn());
 
         Livro livro = Livro.builder()
                 .numero(numero)
@@ -51,7 +54,6 @@ public class LivrariaService {
         return LivrariaMapper.INSTANCE.livroToDto(resultado);
 
     }
-
 
     public List<AutorDto> findAllAutor() {
 
@@ -73,7 +75,7 @@ public class LivrariaService {
         List<Livro> livros = livroRepository.findAllByNumero(numero);
 
         if (livros.isEmpty()) {
-            throw new NotFoundException("Não foi possivel localizar livro cadastrado para o Autor " + numero);
+            throw new NotFoundException("Não foi possivel localizar livro(s) cadastrado(s) para o Autor: " + numero);
         }
 
         return LivrariaMapper.INSTANCE.listLivroToDtoList(livros.stream().toList());
@@ -97,6 +99,15 @@ public class LivrariaService {
         String uuid = String.valueOf(UUID.randomUUID().getMostSignificantBits()).replaceAll("[^0-9]", "").substring(0, 5);
         return Long.parseLong(uuid);
 
+    }
+
+    private void validaSeExisteIsbnCadastrado(String isbn) throws LivroAllReadyExistsException {
+
+        Optional<Livro> livro = livroRepository.findByIsbn(isbn);
+
+        if (livro.isPresent()) {
+            throw new LivroAllReadyExistsException("Livro ja cadastrado!");
+        }
     }
 
 }

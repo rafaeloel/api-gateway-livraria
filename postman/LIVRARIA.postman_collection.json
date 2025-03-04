@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "97f121ce-c736-455b-ab1f-8765793436f5",
+		"name": "LIVRARIA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40186725"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "/autor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Megan Maxwell\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/livraria/api/v1/autor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"livraria",
+								"api",
+								"v1",
+								"autor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/autor/{numero}/livro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Peça-me o que quiser\",\r\n    \"edicao\": \"1ª Edição\",\r\n    \"isbn\": \"123\",\r\n    \"categoria\": \"Romance erótico\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/livraria/api/v1/autor/1234/livro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"livraria",
+								"api",
+								"v1",
+								"autor",
+								"1234",
+								"livro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/autor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/livraria/api/v1/autor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"livraria",
+								"api",
+								"v1",
+								"autor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/autor/{numero}/livro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/livraria/api/v1/autor/35767/livro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"livraria",
+								"api",
+								"v1",
+								"autor",
+								"35767",
+								"livro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/autor/{numero}",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/livraria/api/v1/autor/35767",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"livraria",
+								"api",
+								"v1",
+								"autor",
+								"35767"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "KONG",
+					"item": [
+						{
+							"name": "Consulta Serviços",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/services",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consulta Rotas",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/services",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cria Serviço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"raiz\",\r\n    \"url\":\"http://192.168.100.155:8080/livraria/api/v1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/services",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cria Rota",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"paths\": [\"/v1/gateway/livraria\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/services/raiz/routes",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"raiz",
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adiciona Plugin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"key-auth\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8001/services/raiz/plugins",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"services",
+										"raiz",
+										"plugins"
+									]
+								},
+								"description": "Generated from cURL: curl -i -X POST http://localhost:8001/services/autor_livro/plugins \\\r\n  --data \"name=key-auth\""
+							},
+							"response": []
+						},
+						{
+							"name": "Cria Consumidor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"rafael-baptista\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8001/consumers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers"
+									]
+								},
+								"description": "Generated from cURL: curl -i -X POST http://localhost:8001/consumers \\\r\n  --data \"username=robert\""
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Key-Auth",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8001/consumers/rafael-baptista/key-auth",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"consumers",
+										"rafael-baptista",
+										"key-auth"
+									]
+								},
+								"description": "Generated from cURL: curl -i -X POST http://localhost:8001/consumers/robert/key-auth\r\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ROTAS",
+					"item": [
+						{
+							"name": "Consulta Autores  (HTTPS)",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "PjLYMYqirKCyMII1IOTFEiX4ChBCBo2L",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "apikey",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/v1/gateway/livraria/autor",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"v1",
+										"gateway",
+										"livraria",
+										"autor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consulta Autores By Id (HTTPS)",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "PjLYMYqirKCyMII1IOTFEiX4ChBCBo2L",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "apikey",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/v1/gateway/livraria/autor/37249",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"v1",
+										"gateway",
+										"livraria",
+										"autor",
+										"37249"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastra Autores  (HTTPS)",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "PjLYMYqirKCyMII1IOTFEiX4ChBCBo2L",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "apikey",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Machado de Assis\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/v1/gateway/livraria/autor/62259",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"v1",
+										"gateway",
+										"livraria",
+										"autor",
+										"62259"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastra Livro (HTTPS)",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "PjLYMYqirKCyMII1IOTFEiX4ChBCBo2L",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "apikey",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"titulo\": \"Memórias Póstumas de Brás Cubas\",\r\n    \"edicao\": \"1ª Edição\",\r\n    \"isbn\": \"123456\",\r\n    \"categoria\": \"Romance\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:8443/v1/gateway/livraria/autor/35767/livro",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"v1",
+										"gateway",
+										"livraria",
+										"autor",
+										"35767",
+										"livro"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consulta Livro (HTTPS)",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "PjLYMYqirKCyMII1IOTFEiX4ChBCBo2L",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "apikey",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/v1/gateway/livraria/autor/37249/livro",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"v1",
+										"gateway",
+										"livraria",
+										"autor",
+										"37249",
+										"livro"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

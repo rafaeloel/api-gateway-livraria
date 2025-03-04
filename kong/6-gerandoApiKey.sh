@@ -1,0 +1,1 @@
+curl --location --request POST 'http://localhost:8001/consumers/rafael-baptista/key-auth'
