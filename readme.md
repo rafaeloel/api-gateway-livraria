@@ -54,7 +54,7 @@ docker-compose up -d
 
 ## Subir contêiner do Kong
 
-- Abrir o terminal WSL ou GitBach na pasta raiz do projeto
+- Abrir o terminal WSL ou GitBash na pasta raiz do projeto
 
 ```
 📂 api-gateway-livraria
@@ -139,6 +139,15 @@ necessária para sua aplicação.
 # Usando a aplicação
 
 ### Requisições
+
+⚠️⚠️ Caso tenha problemas pra executar os comandos abaixo, pode ser por conta do Certificado SSL que esta bloqueando ⚠️⚠️
+
+Caso queira desabilitar:
+
+```
+git config --global http.sslVerify false
+```
+git config --global http.sslVerify false
 
 Caso queira, deixei na pasta **./postman** a collection com todas as chamadas com base nas configurações padrões feitas.
 
