@@ -182,6 +182,6 @@ Segue todos os comandos:
 Por fim, para finalizar o kong e zerar suas configurações é só executar:
 
 ```
-./kong/0010_stop.sh
+./kong/7-stop.sh
 ```
 
