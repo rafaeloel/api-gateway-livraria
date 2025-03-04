@@ -179,7 +179,7 @@ Segue todos os comandos:
 ./postman/chamadas/POST-livro.sh
 ```
 
-Por fim, para finalizar o kong e zerar suas configurações é só executar:
+Por fim, para finalizar o Kong basta executar:
 
 ```
 ./kong/7-stop.sh
