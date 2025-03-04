@@ -34,6 +34,13 @@ mvn spring-boot:run
 ## Configurar o Banco de Dados PostgreSQL
 
 - Rodar o seguinte comando para subir o contêiner docker que esta localizado na pasta **/database-docker**:
+Acessar a pasta /database-docker/
+
+```
+cd .\database-docker\
+```
+
+- E executar o comando abaixo:
 
 **Windows**
 
@@ -42,7 +49,7 @@ sudo ./database-docker/docker-compose up -d
 ```
 **Linux**
 ```
-./database-docker/docker-compose up -d
+docker-compose up -d
 ```
 
 ## Subir contêiner do Kong
@@ -56,7 +63,7 @@ sudo ./database-docker/docker-compose up -d
 - Rodar o seguinte comando para iniciar e configurar o Kong:
 
 ```
-./kong/0001_start.sh
+./kong/1-start.sh
 ```
 
 Pronto! A aplicação ja esta pronta para uso na sua forma simples de um CRUD.
