@@ -34,23 +34,13 @@ mvn spring-boot:run
 ## Configurar o Banco de Dados PostgreSQL
 
 - Rodar o seguinte comando para subir o contêiner docker que esta localizado na pasta **/database-docker**:
-Acessar a pasta /database-docker/
+- Executar o comando abaixo:
+
 
 ```
-cd .\database-docker\
+docker-compose -f ./database-docker/docker-compose.yaml up -d
 ```
 
-- E executar o comando abaixo:
-
-**Windows**
-
-```
-sudo ./database-docker/docker-compose up -d
-```
-**Linux**
-```
-docker-compose up -d
-```
 
 ## Subir contêiner do Kong
 
